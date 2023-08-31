@@ -9,6 +9,6 @@ jobs:
       image: godebos/debos:main
     steps:
       - name: Start Build
-        runs: |
+        run: |
           ls
           debos debian-ostree.yaml
