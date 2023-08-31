@@ -1,0 +1,54 @@
+# debos script to build Debian Ostree image
+
+# Set the target architecture
+architecture: amd64
+
+# Set the target distribution
+distribution: bullseye
+
+# Set the target suite
+suite: main
+
+# Set the image type
+image-type: ostree
+
+# Set the image filename
+image-filename: debian-ostree.img
+
+# Define the packages to include in the image
+packages:
+  - ostree
+  - ostree-remote
+  - ostree-grub2
+
+# Define the filesystem layout
+layout:
+  - dest: ostree/repo
+    type: ostree-repo
+    mode: 0755
+
+# Define the commands to run during the image build process
+commands:
+  - ostree init --repo=/ostree/repo
+  - ostree remote add --repo=/ostree/repo --set=gpg-verify=false debian https://example.com/ostree/repo
+  - ostree pull --repo=/ostree/repo debian:latest
+  - ostree admin os-init debian
+  - ostree admin deploy debian --os=debian --karg-append=ro root=ostree:debian
+
+# Define the bootloader configuration
+bootloader:
+  type: grub2
+  install: true
+
+# Define the image artifacts
+artifacts:
+  - name: ostree-repo
+    path: /ostree/repo
+    type: directory
+
+# Define the final image
+image:
+  filename: ${IMAGE_FILENAME}
+  compression: none
+  artifacts:
+    - ostree-repo

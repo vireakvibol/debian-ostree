@@ -1,0 +1,12 @@
+name: Build
+on:
+  push:
+    branches: [ main ]
+jobs:
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: godebos/debos:main
+    steps:
+      - name: Start Build
+        run: debos debian-ostree.yaml
