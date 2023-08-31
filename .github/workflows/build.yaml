@@ -8,7 +8,8 @@ jobs:
     container:
       image: godebos/debos:main
     steps:
-      - name: Start Build
+      - name: fetch repo
         uses: actions/checkout@v3
+      - name: Start Build
         run: |
           debos debian-ostree.yaml
