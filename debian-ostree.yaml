@@ -52,3 +52,11 @@ image:
   compression: none
   artifacts:
     - ostree-repo
+
+- action: debootstrap
+    suite: bookworm
+    components:
+      - main
+      - non-free-firmware
+    mirror: https://deb.debian.org/debian
+    variant: minbase

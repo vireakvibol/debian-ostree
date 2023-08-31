@@ -12,5 +12,4 @@ jobs:
         uses: actions/checkout@v3
       - name: Start Build
         run: |
-          ls
           debos debian-ostree.yaml
