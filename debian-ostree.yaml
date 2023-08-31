@@ -53,7 +53,8 @@ image:
   artifacts:
     - ostree-repo
 
-- action: debootstrap
+actions:
+  - action: debootstrap
     suite: bookworm
     components:
       - main
